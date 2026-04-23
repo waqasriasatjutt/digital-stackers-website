@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  html { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; scroll-behavior: smooth; }
-  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #0a0e27; color: #f7f8fa; }
+  html { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; scroll-behavior: smooth; overflow-x: hidden; }
+  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #0a0e27; color: #f7f8fa; overflow-x: hidden; }
   h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; letter-spacing: -0.02em; }
   ::selection { background: rgba(0, 212, 255, 0.35); color: #fff; }
+  img, svg, video { max-width: 100%; height: auto; }
 }
 
 @layer components {

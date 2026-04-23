@@ -3,9 +3,9 @@ export const SITE = {
   tagline: 'Data-driven digital marketing that compounds.',
   description: 'Full-service digital marketing agency — SEO, Paid Ads, Social, Branding, Web, Automation. We engineer growth that scales with your business.',
   url: 'https://digital-stackers.com',
-  email: 'hello@digital-stackers.com',
-  phone: '+92 315 411 4748',
-  whatsapp: 'https://wa.me/923154114748',
+  email: 'aidigitalstackers@gmail.com',
+  phone: '+92 309 5564446',
+  whatsapp: 'https://wa.me/923095564446',
   city: 'Karachi',
   country: 'Pakistan',
   address: 'Karachi, Pakistan',
@@ -15,7 +15,7 @@ export const SITE = {
     instagram: 'https://instagram.com/digitalstackers',
     facebook: 'https://facebook.com/digitalstackers',
   },
-  booking: 'https://wa.me/923154114748', // replace with Calendly later
+  booking: 'https://wa.me/923095564446', // replace with Calendly later
 };
 
 export const STATS = [

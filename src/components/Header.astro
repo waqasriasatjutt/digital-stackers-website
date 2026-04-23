@@ -5,9 +5,9 @@ const svcByCat: Record<string, typeof SERVICES> = {};
 SERVICES.forEach(s => { (svcByCat[s.category] ||= []).push(s); });
 ---
 <header class="sticky top-0 z-50 border-b border-white/5 bg-navy-900/85 backdrop-blur-lg">
-  <div class="container-site flex h-16 items-center justify-between gap-6">
-    <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Digital Stackers home">
-      <img src="/logo-white.svg" alt="Digital Stackers" width="190" height="38" class="h-9 w-auto" />
+  <div class="container-site flex h-16 items-center justify-between gap-3 sm:gap-6">
+    <a href="/" class="flex items-center gap-2.5 shrink-0 min-w-0" aria-label="Digital Stackers home">
+      <img src="/logo-white.svg" alt="Digital Stackers" width="190" height="38" class="h-7 sm:h-9 w-auto" />
     </a>
 
     <nav class="hidden lg:flex items-center gap-1 text-sm font-medium text-ink-200" aria-label="Primary">
@@ -76,10 +76,14 @@ SERVICES.forEach(s => { (svcByCat[s.category] ||= []).push(s); });
       <a href="/blog/" class="px-3 py-2 rounded-md hover:bg-white/5 hover:text-white">Blog</a>
     </nav>
 
-    <div class="flex items-center gap-2 shrink-0">
-      <a href={SITE.whatsapp} target="_blank" rel="noopener" class="hidden sm:inline-flex btn-outline !py-2 text-sm">WhatsApp</a>
-      <a href="/contact/" class="btn-primary text-sm">Get a Free Audit</a>
-      <button id="mobile-toggle" class="lg:hidden text-white p-2" aria-label="Open menu">
+    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <a href={SITE.whatsapp} target="_blank" rel="noopener" class="hidden lg:inline-flex btn-outline !py-2 text-sm">WhatsApp</a>
+      <!-- Compact CTA on mobile (<sm), full text on >=sm -->
+      <a href="/contact/" class="btn-primary !px-3 !py-2 sm:!px-5 sm:!py-3 text-xs sm:text-sm whitespace-nowrap">
+        <span class="sm:hidden">Free Audit</span>
+        <span class="hidden sm:inline">Get a Free Audit</span>
+      </a>
+      <button id="mobile-toggle" class="lg:hidden text-white p-2 -mr-1 shrink-0" aria-label="Open menu">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
