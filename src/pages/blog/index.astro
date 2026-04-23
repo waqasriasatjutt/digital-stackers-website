@@ -1,12 +1,35 @@
 ---
 import Base from '~/layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { fetchOdooBlogPosts } from '../../lib/odoo';
 
-const posts = (await getCollection('blog'))
+const mdx = (await getCollection('blog'))
   .filter(p => !p.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  .map(p => ({
+    slug: p.slug,
+    title: p.data.title,
+    description: p.data.description,
+    author: p.data.author,
+    date: p.data.date,
+    tags: p.data.tags,
+    category: p.data.category,
+    source: 'mdx' as const,
+  }));
+
+const odoo = (await fetchOdooBlogPosts()).map(p => ({
+  slug: p.slug,
+  title: p.title,
+  description: p.teaser || p.subtitle || p.title,
+  author: p.author,
+  date: p.postDate,
+  tags: p.tags,
+  category: (p.tags[0] || 'Growth'),
+  source: 'odoo' as const,
+}));
+
+const posts = [...mdx, ...odoo].sort((a, b) => b.date.getTime() - a.date.getTime());
 ---
-<Base title="Blog — Growth insights" description="Practical writing on SEO, paid ads, social, automation, and growth — from operators who actually run campaigns.">
+<Base title="Blog — Growth insights" description="Practical writing on SEO, paid ads, social, automation, and growth — from operators who run campaigns every day. Published live from our editorial team.">
   <section class="relative overflow-hidden bg-ds-hero">
     <div class="absolute inset-0 grid-bg opacity-30"></div>
     <div class="container-site relative py-24 sm:py-32">
@@ -26,14 +49,15 @@ const posts = (await getCollection('blog'))
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map(post => (
             <a href={`/blog/${post.slug}/`} class="card group flex flex-col">
-              <div class="flex gap-2 items-center">
-                <span class="chip-cyan">{post.data.category}</span>
+              <div class="flex gap-2 items-center flex-wrap">
+                <span class="chip-cyan">{post.category}</span>
+                {post.source === 'odoo' && <span class="chip-lime">Fresh</span>}
               </div>
-              <h2 class="mt-4 text-xl font-semibold text-white leading-snug">{post.data.title}</h2>
-              <p class="mt-3 text-sm text-ink-300 flex-1 leading-relaxed">{post.data.description}</p>
+              <h2 class="mt-4 text-xl font-semibold text-white leading-snug">{post.title}</h2>
+              <p class="mt-3 text-sm text-ink-300 flex-1 leading-relaxed">{post.description}</p>
               <div class="mt-5 flex items-center justify-between text-xs text-ink-400">
-                <span>{post.data.author}</span>
-                <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
+                <span>{post.author}</span>
+                <time datetime={post.date.toISOString()}>{post.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
               </div>
             </a>
           ))}

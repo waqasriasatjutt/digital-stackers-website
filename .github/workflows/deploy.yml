@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [odoo-blog-publish]
+  schedule:
+    # Daily at 03:30 UTC — safety net so any Odoo content change
+    # reaches the live site within 24 hours even if a webhook is missed.
+    - cron: '30 3 * * *'
 
 concurrency:
   group: deploy
@@ -23,7 +29,13 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Build
+      - name: Build (with Odoo blog fetch)
+        env:
+          ODOO_URL: ${{ secrets.ODOO_URL }}
+          ODOO_DB: ${{ secrets.ODOO_DB }}
+          ODOO_USER: ${{ secrets.ODOO_USER }}
+          ODOO_PASSWORD: ${{ secrets.ODOO_PASSWORD }}
+          DS_BLOG_ID: ${{ secrets.DS_BLOG_ID }}
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
