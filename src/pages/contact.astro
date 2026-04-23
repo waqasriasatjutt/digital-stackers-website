@@ -1,0 +1,172 @@
+---
+import Base from '~/layouts/Base.astro';
+import { SITE, SERVICES } from '~/data/site';
+---
+<Base title="Contact — Get a Free Audit" description="Talk to a senior strategist. Free 30-minute audit — we'll review your marketing stack and propose a path to growth.">
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-20 sm:py-28">
+      <div class="max-w-3xl">
+        <div class="eyebrow">Contact</div>
+        <h1 class="h1 mt-4">Let's audit your <span class="grad-text">marketing stack</span>.</h1>
+        <p class="lede mt-6">
+          30-minute call. We'll review your analytics, ad accounts, site, and funnel — and tell you the two biggest gaps. No commitment, no pitch.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="grid gap-12 lg:grid-cols-5">
+        <div class="lg:col-span-3">
+          <h2 class="h3 text-white">Send us a message</h2>
+          <p class="mt-3 text-ink-300">Response within 4 business hours. Every message is read by a senior strategist.</p>
+
+          <form id="contactForm" class="mt-8 space-y-5">
+            <input type="text" name="_hp" tabindex="-1" autocomplete="off" class="absolute left-[-9999px] w-0 h-0 opacity-0" aria-hidden="true" />
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class="block text-sm font-medium text-ink-200">Your name *</label>
+                <input type="text" name="name" required class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white placeholder-ink-400 px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-ink-200">Company</label>
+                <input type="text" name="company" class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white placeholder-ink-400 px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition" />
+              </div>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class="block text-sm font-medium text-ink-200">Email *</label>
+                <input type="email" name="email" required class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white placeholder-ink-400 px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-ink-200">Phone / WhatsApp</label>
+                <input type="tel" name="phone" class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white placeholder-ink-400 px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition" />
+              </div>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label class="block text-sm font-medium text-ink-200">What do you need? *</label>
+                <select name="service" required class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition">
+                  <option value="" class="bg-navy-800">Select a service</option>
+                  {SERVICES.map(s => <option class="bg-navy-800" value={s.title}>{s.title}</option>)}
+                  <option class="bg-navy-800">Multi-channel / Full package</option>
+                  <option class="bg-navy-800">Not sure — audit me</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-ink-200">Monthly budget</label>
+                <select name="budget" class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition">
+                  <option value="" class="bg-navy-800">Prefer not to say</option>
+                  <option class="bg-navy-800">Under $2k / mo</option>
+                  <option class="bg-navy-800">$2k – $5k / mo</option>
+                  <option class="bg-navy-800">$5k – $15k / mo</option>
+                  <option class="bg-navy-800">$15k – $50k / mo</option>
+                  <option class="bg-navy-800">$50k+ / mo</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-ink-200">Tell us about your business *</label>
+              <textarea name="message" rows="5" required placeholder="Current stack, biggest challenge, growth goals…" class="mt-2 w-full rounded-lg border border-white/15 bg-white/5 text-white placeholder-ink-400 px-4 py-3 text-sm focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" id="submitBtn">Send message →</button>
+            <p class="text-xs text-ink-400">We never share your info. Reply within 4 business hours.</p>
+
+            <div id="formResult" class="hidden"></div>
+          </form>
+        </div>
+
+        <aside class="lg:col-span-2">
+          <div class="space-y-5 sticky top-24">
+            <div class="card-glow">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-400">Direct channels</h3>
+              <ul class="mt-4 space-y-3 text-sm">
+                <li><a class="text-ink-200 hover:text-white flex items-center gap-3" href={`mailto:${SITE.email}`}><span class="text-cyan-400">✉</span> {SITE.email}</a></li>
+                <li><a class="text-ink-200 hover:text-white flex items-center gap-3" href={SITE.whatsapp} target="_blank" rel="noopener"><span class="text-cyan-400">💬</span> WhatsApp us</a></li>
+                <li><a class="text-ink-200 hover:text-white flex items-center gap-3" href={`tel:${SITE.phone.replace(/\s/g,'')}`}><span class="text-cyan-400">📞</span> {SITE.phone}</a></li>
+                <li class="flex items-center gap-3 text-ink-300"><span class="text-cyan-400">📍</span> {SITE.address}</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-400">What happens next</h3>
+              <ol class="mt-4 space-y-3 text-sm text-ink-200">
+                <li class="flex gap-3"><span class="h-6 w-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center shrink-0">1</span><span>We reply within 4 business hours</span></li>
+                <li class="flex gap-3"><span class="h-6 w-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center shrink-0">2</span><span>You get a calendar link for a 30-min audit call</span></li>
+                <li class="flex gap-3"><span class="h-6 w-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center shrink-0">3</span><span>We send a 2-page growth plan after the call</span></li>
+                <li class="flex gap-3"><span class="h-6 w-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center shrink-0">4</span><span>You decide if we're a fit. Zero pressure.</span></li>
+              </ol>
+            </div>
+
+            <div class="rounded-2xl bg-ds-cyan p-6 text-navy-900">
+              <h3 class="font-bold">Prefer WhatsApp?</h3>
+              <p class="mt-2 text-sm">We respond in minutes during business hours.</p>
+              <a href={SITE.whatsapp} target="_blank" rel="noopener" class="btn mt-4 bg-navy-900 text-white hover:bg-navy-800 w-full">Message us →</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function() {
+      const form = document.getElementById('contactForm');
+      const result = document.getElementById('formResult');
+      const btn = document.getElementById('submitBtn');
+      if (!form) return;
+
+      const qs = new URLSearchParams(location.search);
+      ['product','service','country','source'].forEach(k => {
+        const v = qs.get(k);
+        if (v) {
+          let input = form.querySelector('input[name="' + k + '"]');
+          if (!input) {
+            input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = k;
+            form.appendChild(input);
+          }
+          input.value = v;
+        }
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+        data.website = location.href;
+        try {
+          const resp = await fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const j = await resp.json().catch(() => ({}));
+          if (resp.ok && j.ok) {
+            result.className = 'rounded-lg bg-lime-500/10 border border-lime-500/30 p-4 text-sm text-lime-300';
+            result.textContent = 'Got it — a senior strategist will reply within 4 business hours.';
+            form.reset();
+          } else {
+            throw new Error(j.error || 'Network error');
+          }
+        } catch (err) {
+          result.className = 'rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-sm text-red-300';
+          result.textContent = "Couldn't submit right now. Please email hello@digital-stackers.com or WhatsApp us.";
+        }
+        result.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Send message →';
+      });
+    })();
+  </script>
+</Base>

@@ -1,0 +1,41 @@
+---
+import Base from '~/layouts/Base.astro';
+import { SERVICES } from '~/data/site';
+
+const categories = [...new Set(SERVICES.map(s => s.category))];
+---
+<Base title="Services — Digital Stackers" description="Seven digital marketing services: SEO, Paid Ads, Social Media, Web, Branding, Automation, Email. All engineered for revenue and ROI.">
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-24 sm:py-32">
+      <div class="max-w-3xl">
+        <div class="eyebrow">Services</div>
+        <h1 class="h1 mt-4">Seven services. <span class="grad-text">One growth engine.</span></h1>
+        <p class="lede mt-6">Every service below is run by a senior operator — not farmed to interns. Pick one, or stack them into a full funnel.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site space-y-16">
+      {categories.map(cat => (
+        <div>
+          <h2 class="h3 text-white">{cat}</h2>
+          <div class="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.filter(s => s.category === cat).map(s => (
+              <a href={`/services/${s.slug}/`} class="card group flex flex-col">
+                <div class="flex items-center gap-3">
+                  <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-2xl">{s.icon}</div>
+                  <span class="chip-cyan">{s.category}</span>
+                </div>
+                <h3 class="mt-5 text-lg font-semibold text-white">{s.title}</h3>
+                <p class="mt-2 text-sm text-ink-300 flex-1 leading-relaxed">{s.tagline}</p>
+                <span class="mt-5 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300">Learn more →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

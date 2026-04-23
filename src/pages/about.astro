@@ -1,0 +1,129 @@
+---
+import Base from '~/layouts/Base.astro';
+import { SITE, STATS, HIGHLIGHTS, SERVICES } from '~/data/site';
+---
+<Base title="About — Digital Stackers" description="Senior operators. Data-driven approach. We engineer growth tied directly to revenue. Meet the team behind Digital Stackers.">
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-24 sm:py-32">
+      <div class="max-w-3xl">
+        <div class="eyebrow">About</div>
+        <h1 class="h1 mt-4">We're <span class="grad-text">operators first</span>, marketers second.</h1>
+        <p class="lede mt-6">
+          Digital Stackers was founded on a frustration: most agencies sell impressions, not outcomes. We built a team that thinks like in-house marketing leaders — obsessed with CAC, LTV, and payback period.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {STATS.map(s => (
+          <div class="card-glow text-center">
+            <div class="text-4xl font-bold grad-text">{s.value}</div>
+            <div class="text-sm text-ink-300 mt-2">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-950 border-y border-white/5">
+    <div class="container-site">
+      <div class="grid gap-16 lg:grid-cols-3">
+        <div class="lg:col-span-2 space-y-8">
+          <div>
+            <h2 class="h3 text-white">Our story</h2>
+            <p class="mt-4 text-ink-200 leading-relaxed">Digital Stackers started because we were tired of watching agencies report vanity metrics while CFOs asked hard questions. "Impressions went up" doesn't pay the bills. "Pipeline grew 3x at a 62% lower CAC" does.</p>
+            <p class="mt-4 text-ink-200 leading-relaxed">We built a small senior team — strategists, paid specialists, content leads, web engineers — all with 5+ years of operator experience. No interns. No account hand-offs. Every client gets a strategist who owns their outcomes.</p>
+          </div>
+
+          <div>
+            <h2 class="h3 text-white">How we're different</h2>
+            <ul class="mt-4 space-y-4">
+              <li class="flex gap-3">
+                <span class="text-cyan-400 font-bold mt-1">→</span>
+                <div>
+                  <strong class="text-white">Revenue over rankings.</strong>
+                  <p class="text-ink-300 mt-1">We measure success in pipeline, payback, and profit. Rankings and impressions are means, not ends.</p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cyan-400 font-bold mt-1">→</span>
+                <div>
+                  <strong class="text-white">Senior-led accounts.</strong>
+                  <p class="text-ink-300 mt-1">The strategist on your sales call is the same one optimizing your campaigns a month later.</p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cyan-400 font-bold mt-1">→</span>
+                <div>
+                  <strong class="text-white">Own your accounts.</strong>
+                  <p class="text-ink-300 mt-1">Everything lives in your Ad Manager, your GA4, your CRM. If we part ways, you keep every pixel and asset.</p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cyan-400 font-bold mt-1">→</span>
+                <div>
+                  <strong class="text-white">Performance-based guarantees.</strong>
+                  <p class="text-ink-300 mt-1">For paid ads, 3x ROAS in 90 days or we refund the management fee. We take skin in the game.</p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-cyan-400 font-bold mt-1">→</span>
+                <div>
+                  <strong class="text-white">Transparent by default.</strong>
+                  <p class="text-ink-300 mt-1">Real-time dashboards, weekly Looms, monthly calls. No slide decks hiding bad numbers.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="h3 text-white">Where we work</h2>
+            <p class="mt-4 text-ink-200 leading-relaxed">Remote-first team across Pakistan, the GCC, and the UK. We deliver for clients in North America, Europe, the Middle East, and Asia — with timezone overlap for every region.</p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              {['Pakistan','UAE','Saudi Arabia','UK','USA','Germany','Canada','Australia','Singapore'].map(c => (
+                <span class="chip">{c}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <aside class="space-y-5">
+          {HIGHLIGHTS.map(h => (
+            <div class="card-glow">
+              <div class="text-2xl">{h.icon}</div>
+              <h3 class="mt-3 font-semibold text-white">{h.title}</h3>
+              <p class="mt-2 text-sm text-ink-300">{h.desc}</p>
+            </div>
+          ))}
+          <div class="rounded-2xl bg-ds-cyan p-6 text-navy-900">
+            <h3 class="text-lg font-bold">Ready to talk?</h3>
+            <p class="mt-2 text-sm">Free 30-min audit. We'll find your two biggest gaps.</p>
+            <a href="/contact/" class="btn mt-4 bg-navy-900 text-white hover:bg-navy-800 w-full">Book a call</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="eyebrow justify-center">What we do</div>
+        <h2 class="h2 mt-4">Seven services, one growth engine.</h2>
+      </div>
+      <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {SERVICES.map(s => (
+          <a href={`/services/${s.slug}/`} class="card group !p-5">
+            <div class="text-2xl">{s.icon}</div>
+            <h3 class="mt-3 font-semibold text-white">{s.title}</h3>
+            <p class="mt-1.5 text-xs text-ink-300 leading-snug">{s.tagline}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

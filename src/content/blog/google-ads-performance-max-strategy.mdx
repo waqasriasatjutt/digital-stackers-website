@@ -1,0 +1,69 @@
+---
+title: "Performance Max is a black box. Here's how we run it profitably anyway."
+description: "A 5-step framework for running Google Performance Max campaigns that don't cannibalize your brand search or burn budget on low-quality placements."
+date: 2026-04-12
+author: "Digital Stackers"
+category: "Paid Ads"
+tags: ["Google Ads", "Performance Max", "PPC"]
+---
+
+Performance Max was sold to us as "fully automated" — Google will find your customers. In practice, PMax campaigns cannibalize brand search, show ads to bots on random placements, and give you almost zero visibility into where your money goes.
+
+But it does work. Here's our current framework.
+
+## 1. Exclude brand search — always
+
+PMax will happily bid on your own brand keywords and take credit for conversions you would've gotten for free. Exclude branded terms at the account level.
+
+```
+Google Ads → Campaigns → Brand exclusions → Add your brand terms
+```
+
+## 2. Feed Google first-party data
+
+Without inputs, PMax flies blind. Feed it:
+
+- **Customer Match lists** — your best-converting past customers (top 20% by order value)
+- **Conversion values** — not just "lead" or "purchase" but actual revenue values
+- **Offline conversions** — if you have a sales cycle, upload closed-won deals via Google Ads API
+
+First-party signals are the single biggest difference between profitable and wasteful PMax.
+
+## 3. Audience signals ≠ audience targeting
+
+Audience signals are a suggestion, not a lock. PMax will still serve outside your signals if the algo thinks it'll convert. Use signals to push in the right direction but don't expect strict targeting.
+
+## 4. Separate by margin, not product
+
+Create separate asset groups **by gross margin**, not by product line. Why? Because PMax optimizes for conversion volume, not profit. Put high-margin SKUs in their own asset group with higher tROAS targets.
+
+## 5. Monitor placements weekly
+
+Use this script to pull PMax placements weekly:
+
+```javascript
+// Run in Google Ads scripts → Bulk actions → Scripts
+function main() {
+  var query = "SELECT campaign.name, detail_placement_view.placement " +
+              "FROM detail_placement_view " +
+              "WHERE campaign.advertising_channel_type = 'PERFORMANCE_MAX' " +
+              "AND segments.date DURING LAST_7_DAYS";
+  // ...export to Sheets and filter bad placements
+}
+```
+
+Exclude placements like `youtube.com/mobile-app` and known low-quality display networks.
+
+## When PMax is the right choice
+
+- eCommerce with clean Merchant Center feed and wide product catalog
+- High-intent keywords already maxed out on search
+- Sufficient conversion volume (>30 conversions/month minimum)
+
+## When to avoid PMax
+
+- Lead-gen with long sales cycle and no offline conversion upload
+- Brands where brand search is a big % of paid volume
+- Accounts with poor conversion tracking — garbage in, garbage out
+
+[Book an audit](/contact/) and we'll review your PMax campaigns — free, no pitch.

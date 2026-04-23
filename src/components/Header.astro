@@ -1,0 +1,103 @@
+---
+import { SITE, SERVICES, CASE_STUDIES } from '~/data/site';
+
+const svcByCat: Record<string, typeof SERVICES> = {};
+SERVICES.forEach(s => { (svcByCat[s.category] ||= []).push(s); });
+---
+<header class="sticky top-0 z-50 border-b border-white/5 bg-navy-900/85 backdrop-blur-lg">
+  <div class="container-site flex h-16 items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Digital Stackers home">
+      <img src="/logo-white.svg" alt="Digital Stackers" width="190" height="38" class="h-9 w-auto" />
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-1 text-sm font-medium text-ink-200" aria-label="Primary">
+      <!-- Services mega -->
+      <div class="group relative">
+        <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-white/5 hover:text-white">
+          Services
+          <svg class="h-3 w-3 opacity-60" viewBox="0 0 12 12" fill="currentColor"><path d="M6 8L2 4h8z"/></svg>
+        </button>
+        <div class="mega top-full w-[640px] rounded-2xl border border-white/10 bg-navy-800 shadow-2xl">
+          <div class="grid grid-cols-2 gap-6 p-6">
+            {Object.entries(svcByCat).map(([cat, list]) => (
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-3">{cat}</div>
+                <ul class="space-y-1">
+                  {list.map(s => (
+                    <li>
+                      <a href={`/services/${s.slug}/`} class="flex gap-3 rounded-lg p-2 hover:bg-white/5">
+                        <span class="text-lg shrink-0">{s.icon}</span>
+                        <span>
+                          <span class="block font-semibold text-white">{s.title}</span>
+                          <span class="block text-xs text-ink-300 leading-tight mt-0.5">{s.tagline}</span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div class="rounded-b-2xl bg-navy-950/50 px-6 py-3 border-t border-white/5 flex items-center justify-between text-sm">
+            <span class="text-ink-300">7 services. One performance-driven team.</span>
+            <a href="/services/" class="font-semibold text-cyan-400 hover:text-cyan-300">All services →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case studies mega -->
+      <div class="group relative">
+        <button class="flex items-center gap-1 px-3 py-2 rounded-md hover:bg-white/5 hover:text-white">
+          Case Studies
+          <svg class="h-3 w-3 opacity-60" viewBox="0 0 12 12" fill="currentColor"><path d="M6 8L2 4h8z"/></svg>
+        </button>
+        <div class="mega top-full w-[560px] rounded-2xl border border-white/10 bg-navy-800 shadow-2xl">
+          <ul class="p-4 space-y-1">
+            {CASE_STUDIES.slice(0,5).map(cs => (
+              <li>
+                <a href={`/case-studies/${cs.slug}/`} class="flex gap-3 rounded-lg p-3 hover:bg-white/5">
+                  <span class="text-xs shrink-0 mt-1 chip-cyan">{cs.industry}</span>
+                  <span>
+                    <span class="block font-semibold text-white text-sm">{cs.title}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="rounded-b-2xl bg-navy-950/50 px-6 py-3 border-t border-white/5 flex items-center justify-between text-sm">
+            <span class="text-ink-300">Real numbers, real clients.</span>
+            <a href="/case-studies/" class="font-semibold text-cyan-400 hover:text-cyan-300">All case studies →</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="/pricing/" class="px-3 py-2 rounded-md hover:bg-white/5 hover:text-white">Pricing</a>
+      <a href="/about/" class="px-3 py-2 rounded-md hover:bg-white/5 hover:text-white">About</a>
+      <a href="/blog/" class="px-3 py-2 rounded-md hover:bg-white/5 hover:text-white">Blog</a>
+    </nav>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <a href={SITE.whatsapp} target="_blank" rel="noopener" class="hidden sm:inline-flex btn-outline !py-2 text-sm">WhatsApp</a>
+      <a href="/contact/" class="btn-primary text-sm">Get a Free Audit</a>
+      <button id="mobile-toggle" class="lg:hidden text-white p-2" aria-label="Open menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="hidden lg:hidden border-t border-white/10 bg-navy-900">
+    <div class="container-site py-4 space-y-1 text-sm">
+      <a href="/services/" class="block py-2.5 font-semibold text-white">Services</a>
+      <a href="/case-studies/" class="block py-2.5 font-semibold text-white">Case Studies</a>
+      <a href="/pricing/" class="block py-2.5 font-semibold text-white">Pricing</a>
+      <a href="/about/" class="block py-2.5 font-semibold text-white">About</a>
+      <a href="/blog/" class="block py-2.5 font-semibold text-white">Blog</a>
+      <a href="/contact/" class="block py-2.5 font-semibold text-cyan-400">Contact →</a>
+    </div>
+  </nav>
+</header>
+<script>
+  const t = document.getElementById('mobile-toggle');
+  const n = document.getElementById('mobile-nav');
+  t?.addEventListener('click', () => n?.classList.toggle('hidden'));
+</script>

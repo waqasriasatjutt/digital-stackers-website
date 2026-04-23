@@ -1,0 +1,41 @@
+---
+import Base from '~/layouts/Base.astro';
+import { CASE_STUDIES } from '~/data/site';
+---
+<Base title="Case Studies — Real Results" description="Real digital marketing case studies. SEO, paid ads, social, branding — every outcome tied to revenue, pipeline, or payback.">
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-24 sm:py-32">
+      <div class="max-w-3xl">
+        <div class="eyebrow">Case Studies</div>
+        <h1 class="h1 mt-4">Real clients. <span class="grad-text">Real numbers.</span></h1>
+        <p class="lede mt-6">Every case study below is tied to actual revenue outcomes — pipeline, ROAS, payback, CAC. Not vanity metrics.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {CASE_STUDIES.map(cs => (
+          <a href={`/case-studies/${cs.slug}/`} class="card group flex flex-col">
+            <div class="flex items-center gap-2">
+              <span class="chip-cyan">{cs.industry}</span>
+              <span class="chip">{cs.duration}</span>
+            </div>
+            <h2 class="mt-4 text-lg font-semibold text-white leading-snug flex-1">{cs.title}</h2>
+            <div class="mt-5 grid grid-cols-2 gap-3">
+              {cs.metrics.slice(0, 4).map(m => (
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
+                  <div class="text-lg font-bold grad-text">{m.v}</div>
+                  <div class="text-[11px] text-ink-400 mt-0.5">{m.k}</div>
+                </div>
+              ))}
+            </div>
+            <span class="mt-5 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300">Read case study →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

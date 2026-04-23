@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 60" width="320" height="60">
+  <defs>
+    <linearGradient id="dsCyanW" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#47DCFF"/>
+      <stop offset="100%" stop-color="#00D4FF"/>
+    </linearGradient>
+    <linearGradient id="dsStackW" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#80E8FF"/>
+      <stop offset="100%" stop-color="#00D4FF"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(6,10)">
+    <rect x="0"  y="26" width="8" height="14" rx="2" fill="url(#dsStackW)" opacity="0.55"/>
+    <rect x="12" y="18" width="8" height="22" rx="2" fill="url(#dsStackW)" opacity="0.75"/>
+    <rect x="24" y="10" width="8" height="30" rx="2" fill="url(#dsStackW)" opacity="0.90"/>
+    <rect x="36" y="2"  width="8" height="38" rx="2" fill="url(#dsCyanW)"/>
+    <circle cx="40" cy="2" r="3" fill="#9EFF00"/>
+  </g>
+  <g transform="translate(62,0)">
+    <text x="0" y="32" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-weight="700" font-size="24" fill="#ffffff" letter-spacing="-0.5">
+      digital<tspan fill="url(#dsCyanW)">stackers</tspan>
+    </text>
+    <text x="0" y="50" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="9" fill="#B0B9C8" letter-spacing="3">GROWTH · PERFORMANCE · ROI</text>
+  </g>
+</svg>

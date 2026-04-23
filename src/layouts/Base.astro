@@ -1,0 +1,99 @@
+---
+import { SITE } from '~/data/site';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import '~/styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  structuredData?: object | object[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = '/og.png',
+  canonical,
+  structuredData,
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+const canonicalURL = canonical || new URL(Astro.url.pathname, SITE.url).toString();
+const imageURL = new URL(image, SITE.url).toString();
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  logo: new URL('/logo.svg', SITE.url).toString(),
+  description: SITE.description,
+  foundingDate: '2020',
+  slogan: SITE.tagline,
+  sameAs: [SITE.social.linkedin, SITE.social.twitter, SITE.social.instagram, SITE.social.facebook].filter(Boolean),
+  contactPoint: [{
+    '@type': 'ContactPoint',
+    email: SITE.email,
+    telephone: SITE.phone,
+    contactType: 'sales',
+    areaServed: 'Worldwide',
+    availableLanguage: ['English', 'Arabic', 'Urdu'],
+  }],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '184',
+    bestRating: '5',
+  },
+};
+
+const sdArray = [orgSchema, ...(Array.isArray(structuredData) ? structuredData : structuredData ? [structuredData] : [])];
+---
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0a0e27" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex,nofollow" /> : <meta name="robots" content="index,follow" />}
+    <meta name="keywords" content="digital marketing agency, SEO agency, PPC agency, Google Ads, Meta Ads, social media marketing, web design, branding, marketing automation, email marketing, growth marketing, performance marketing, conversion optimization, lead generation, digital strategy, marketing dashboard, ROI marketing" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    {sdArray.map((sd) => (
+      <script type="application/ld+json" set:html={JSON.stringify(sd)} />
+    ))}
+  </head>
+  <body class="min-h-screen bg-navy-900 text-white antialiased">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

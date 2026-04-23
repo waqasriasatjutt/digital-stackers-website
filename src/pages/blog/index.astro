@@ -1,0 +1,44 @@
+---
+import Base from '~/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base title="Blog — Growth insights" description="Practical writing on SEO, paid ads, social, automation, and growth — from operators who actually run campaigns.">
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-24 sm:py-32">
+      <div class="max-w-3xl">
+        <div class="eyebrow">Insights</div>
+        <h1 class="h1 mt-4">Growth writing from <span class="grad-text">operators</span>.</h1>
+        <p class="lede mt-6">No thin AI takes. No recycled clichés. Just practical writing from people who actually run campaigns every day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      {posts.length === 0 ? (
+        <p class="text-ink-300">No posts yet. Check back soon.</p>
+      ) : (
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map(post => (
+            <a href={`/blog/${post.slug}/`} class="card group flex flex-col">
+              <div class="flex gap-2 items-center">
+                <span class="chip-cyan">{post.data.category}</span>
+              </div>
+              <h2 class="mt-4 text-xl font-semibold text-white leading-snug">{post.data.title}</h2>
+              <p class="mt-3 text-sm text-ink-300 flex-1 leading-relaxed">{post.data.description}</p>
+              <div class="mt-5 flex items-center justify-between text-xs text-ink-400">
+                <span>{post.data.author}</span>
+                <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

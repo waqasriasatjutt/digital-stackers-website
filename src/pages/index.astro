@@ -1,0 +1,226 @@
+---
+import Base from '~/layouts/Base.astro';
+import { SITE, SERVICES, STATS, HIGHLIGHTS, CASE_STUDIES, CLIENT_LOGOS, PROCESS, FAQS } from '~/data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base
+  title="Digital Marketing Agency — SEO, PPC, Social, Branding"
+  description="Data-driven digital marketing agency. SEO, Paid Ads, Social, Branding, Web, Automation, Email. $24M+ ad spend managed, 4.2x avg ROAS, 320+ clients scaled."
+  structuredData={faqSchema}
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-40"></div>
+    <!-- Floating gradient orbs -->
+    <div class="absolute top-20 left-10 h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl animate-float"></div>
+    <div class="absolute bottom-20 right-10 h-72 w-72 rounded-full bg-lime-500/10 blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <div class="container-site relative py-24 sm:py-32 lg:py-40">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 rounded-full bg-white/5 border border-cyan-500/30 px-4 py-1.5 text-xs font-semibold backdrop-blur">
+          <span class="inline-block h-2 w-2 rounded-full bg-lime-400 animate-pulse"></span>
+          <span class="text-cyan-300">Booking new clients for May 2026</span>
+        </div>
+        <h1 class="h1 mt-6">
+          Scale your business with <span class="grad-text">data-driven marketing</span>.
+        </h1>
+        <p class="lede mt-6 max-w-3xl">
+          Full-service digital marketing designed around ROI — SEO, Paid Ads, Social, Branding, Web, Automation. We engineer growth, not vanity metrics.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="/contact/" class="btn-primary">Get a Free Audit</a>
+          <a href={SITE.booking} target="_blank" rel="noopener" class="btn-secondary">Book a Call →</a>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-16 grid grid-cols-2 gap-6 sm:grid-cols-4 max-w-3xl">
+          {STATS.map(s => (
+            <div>
+              <div class="text-3xl sm:text-4xl font-bold grad-text">{s.value}</div>
+              <div class="text-sm text-ink-300 mt-1">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Client logos strip -->
+    <div class="relative border-t border-white/5 bg-navy-950/40 backdrop-blur">
+      <div class="container-site py-6 flex flex-wrap items-center gap-x-10 gap-y-3 text-xs text-ink-400">
+        <span class="font-semibold text-ink-200">Trusted by:</span>
+        {CLIENT_LOGOS.map(l => <span class="font-display font-semibold tracking-wide uppercase">{l}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="max-w-3xl">
+        <div class="eyebrow">What we do</div>
+        <h2 class="h2 mt-4">Seven services. One growth engine.</h2>
+        <p class="lede mt-5">
+          Most agencies bolt on channels. We engineer them to work together — every touchpoint reinforces the next.
+        </p>
+      </div>
+      <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.map((s, i) => (
+          <a href={`/services/${s.slug}/`} class={`card group relative ${i === 0 ? 'lg:col-span-2' : ''}`}>
+            <div class="flex items-center gap-3">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-2xl">{s.icon}</div>
+              <span class="chip-cyan">{s.category}</span>
+            </div>
+            <h3 class="mt-5 text-xl font-semibold text-white">{s.title}</h3>
+            <p class="mt-2 text-sm text-ink-300 leading-relaxed">{s.tagline}</p>
+            <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300">
+              Learn more <span class="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS / WHY US -->
+  <section class="section bg-navy-950 border-y border-white/5">
+    <div class="container-site">
+      <div class="max-w-3xl">
+        <div class="eyebrow">Why Digital Stackers</div>
+        <h2 class="h2 mt-4">Senior operators. Transparent reporting. Real ROI.</h2>
+      </div>
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {HIGHLIGHTS.map(h => (
+          <div class="card-glow">
+            <div class="text-3xl">{h.icon}</div>
+            <h3 class="mt-3 text-lg font-semibold text-white">{h.title}</h3>
+            <p class="mt-2 text-sm text-ink-300">{h.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <div class="eyebrow">Proof at scale</div>
+          <h2 class="h2 mt-4">Real clients. Real numbers.</h2>
+          <p class="lede mt-5">Every case study below is tied to actual revenue outcomes — not impressions, not vanity metrics.</p>
+        </div>
+        <a href="/case-studies/" class="btn-secondary self-start">All case studies →</a>
+      </div>
+      <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {CASE_STUDIES.slice(0, 6).map(cs => (
+          <a href={`/case-studies/${cs.slug}/`} class="card group flex flex-col">
+            <div class="flex items-center gap-2">
+              <span class="chip-cyan">{cs.industry}</span>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-white leading-snug flex-1">{cs.title}</h3>
+            <div class="mt-5 grid grid-cols-2 gap-3">
+              {cs.metrics.slice(0, 4).map(m => (
+                <div class="rounded-lg bg-white/[0.03] border border-white/5 p-3">
+                  <div class="text-lg font-bold grad-text">{m.v}</div>
+                  <div class="text-[11px] text-ink-400 mt-0.5">{m.k}</div>
+                </div>
+              ))}
+            </div>
+            <span class="mt-5 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300">Read case study →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section bg-navy-950 border-y border-white/5">
+    <div class="container-site">
+      <div class="max-w-3xl">
+        <div class="eyebrow">How we work</div>
+        <h2 class="h2 mt-4">5 steps from first call to compounding growth.</h2>
+      </div>
+      <div class="mt-14 grid gap-5 md:grid-cols-5">
+        {PROCESS.map((p, i) => (
+          <div class="relative">
+            <div class="h-14 w-14 rounded-xl bg-ds-cyan flex items-center justify-center text-navy-900 font-bold text-xl">
+              {p.n}
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-white">{p.title}</h3>
+            <p class="mt-2 text-sm text-ink-300 leading-relaxed">{p.desc}</p>
+            {i < PROCESS.length - 1 && (
+              <div class="hidden md:block absolute top-7 left-14 w-full h-px bg-gradient-to-r from-cyan-500/40 to-transparent"></div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="text-6xl text-cyan-500/30 font-display">"</div>
+        <blockquote class="text-2xl sm:text-3xl font-display font-medium text-white leading-relaxed -mt-6">
+          Digital Stackers rebuilt our entire funnel in 3 weeks. We went from spending $40k/mo on ads that barely broke even to a 5.8x ROAS within the first quarter. They report like CFOs — no fluff, just revenue.
+        </blockquote>
+        <div class="mt-8 flex items-center justify-center gap-4">
+          <div class="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center font-bold text-navy-900">SK</div>
+          <div class="text-left">
+            <div class="font-semibold text-white">Sarah Khan</div>
+            <div class="text-sm text-ink-400">VP Marketing · SaaS Platform</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-navy-950 border-y border-white/5">
+    <div class="container-site">
+      <div class="grid gap-10 lg:grid-cols-3">
+        <div>
+          <div class="eyebrow">Questions</div>
+          <h2 class="h2 mt-4">Honest answers.</h2>
+          <p class="lede mt-5">Don't see yours? <a href="/contact/" class="text-cyan-400 hover:text-cyan-300 underline">Ask us directly</a>.</p>
+        </div>
+        <div class="lg:col-span-2 space-y-3">
+          {FAQS.map(f => (
+            <details class="group rounded-xl border border-white/10 bg-white/[0.03] open:border-cyan-500/40 open:bg-cyan-500/[0.03]">
+              <summary class="flex cursor-pointer items-center justify-between p-5 font-semibold text-white">
+                <span>{f.q}</span>
+                <span class="text-cyan-400 transition group-open:rotate-45 text-xl">+</span>
+              </summary>
+              <p class="px-5 pb-5 text-ink-300 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container-site">
+      <div class="relative overflow-hidden rounded-3xl bg-ds-gradient p-10 sm:p-16 border border-cyan-500/30">
+        <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-cyan-400/30 blur-3xl"></div>
+        <div class="absolute -bottom-16 -left-10 h-60 w-60 rounded-full bg-lime-500/20 blur-3xl"></div>
+        <div class="relative max-w-2xl">
+          <h2 class="h2 text-white">Let's see what your marketing could actually do.</h2>
+          <p class="lede mt-5 text-ink-200">
+            Free 30-minute audit. We'll review your current stack, find the two biggest gaps, and propose a path — no commitment, no pitch.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/contact/" class="btn-primary">Claim your free audit</a>
+            <a href={SITE.whatsapp} target="_blank" rel="noopener" class="btn-secondary">WhatsApp us →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

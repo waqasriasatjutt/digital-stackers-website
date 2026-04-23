@@ -1,0 +1,103 @@
+---
+import Base from '~/layouts/Base.astro';
+import { SITE, CASE_STUDIES, SERVICES } from '~/data/site';
+
+export function getStaticPaths() {
+  return CASE_STUDIES.map(c => ({ params: { slug: c.slug }, props: { cs: c } }));
+}
+
+const { cs } = Astro.props;
+const related = CASE_STUDIES.filter(c => c.slug !== cs.slug).slice(0, 3);
+const linkedServices = SERVICES.filter(s => (cs.services || []).includes(s.slug));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: cs.title,
+  description: cs.challenge,
+  author: { '@type': 'Organization', name: SITE.name },
+  publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/logo.svg` } },
+};
+---
+<Base title={cs.title} description={cs.challenge} structuredData={schema}>
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-20">
+      <nav class="text-sm text-ink-400"><a href="/" class="hover:text-cyan-400">Home</a> / <a href="/case-studies/" class="hover:text-cyan-400">Case Studies</a></nav>
+      <div class="mt-8 max-w-3xl">
+        <div class="flex items-center gap-2">
+          <span class="chip-cyan">{cs.industry}</span>
+          <span class="chip">{cs.duration}</span>
+        </div>
+        <h1 class="h1 mt-6">{cs.title}</h1>
+        <p class="lede mt-5">{cs.client}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 bg-navy-900 border-b border-white/5">
+    <div class="container-site">
+      <div class="grid gap-5 md:grid-cols-4 max-w-5xl mx-auto">
+        {cs.metrics.map(m => (
+          <div class="card-glow text-center">
+            <div class="text-4xl font-bold grad-text">{m.v}</div>
+            <div class="text-sm text-ink-300 mt-2">{m.k}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="grid gap-14 lg:grid-cols-3">
+        <div class="lg:col-span-2 space-y-10">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-red-400">The challenge</div>
+            <p class="mt-3 text-lg text-ink-200 leading-relaxed">{cs.challenge}</p>
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-cyan-400">Our strategy</div>
+            <p class="mt-3 text-lg text-ink-200 leading-relaxed">{cs.strategy}</p>
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-lime-400">Execution</div>
+            <p class="mt-3 text-lg text-ink-200 leading-relaxed">{cs.execution}</p>
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-cyan-400">The outcome</div>
+            <p class="mt-3 text-lg text-ink-200 leading-relaxed">
+              Within {cs.duration}, we delivered measurable outcomes tied to revenue — not vanity metrics. See the numbers at the top of this page.
+            </p>
+            <blockquote class="mt-8 border-l-4 border-cyan-500 pl-6 italic text-ink-200 text-lg">
+              "Digital Stackers didn't just run campaigns — they rebuilt our whole go-to-market motion around data. The numbers speak for themselves."
+            </blockquote>
+          </div>
+        </div>
+        <aside>
+          <div class="sticky top-24 space-y-5">
+            <div class="rounded-2xl bg-ds-gradient border border-cyan-500/30 p-6">
+              <h3 class="text-lg font-semibold text-white">Your turn?</h3>
+              <p class="mt-3 text-sm text-ink-200">Free audit call — we'll scope how we'd approach your growth.</p>
+              <a href="/contact/" class="btn-primary w-full mt-5">Book a call</a>
+            </div>
+            {linkedServices.length > 0 && (
+              <div class="card">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-400">Services delivered</h3>
+                <ul class="mt-4 space-y-2 text-sm">
+                  {linkedServices.map(s => (<li><a class="text-ink-200 hover:text-cyan-400" href={`/services/${s.slug}/`}>{s.icon} {s.title}</a></li>))}
+                </ul>
+              </div>
+            )}
+            <div class="card">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-400">More case studies</h3>
+              <ul class="mt-4 space-y-3 text-sm">
+                {related.map(r => (<li><a class="text-ink-200 hover:text-cyan-400 line-clamp-2" href={`/case-studies/${r.slug}/`}>→ {r.title}</a></li>))}
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>

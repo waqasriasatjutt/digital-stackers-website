@@ -1,0 +1,73 @@
+---
+import Base from '~/layouts/Base.astro';
+import { PRICING, FAQS } from '~/data/site';
+---
+<Base title="Pricing — Performance-based marketing packages" description="Starter from $1,500/mo. Growth from $3,800/mo. Scale custom. Transparent pricing, month-to-month flexibility, performance-based guarantees.">
+  <section class="relative overflow-hidden bg-ds-hero">
+    <div class="absolute inset-0 grid-bg opacity-30"></div>
+    <div class="container-site relative py-24 text-center">
+      <div class="max-w-3xl mx-auto">
+        <div class="eyebrow justify-center">Pricing</div>
+        <h1 class="h1 mt-4">Transparent. <span class="grad-text">Performance-backed.</span></h1>
+        <p class="lede mt-6">
+          No 12-month lock-ins. No surprise invoices. A 3x ROAS guarantee on paid ads, or we refund the management fee.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-navy-900">
+    <div class="container-site">
+      <div class="grid gap-5 lg:grid-cols-3 max-w-6xl mx-auto">
+        {PRICING.map(t => (
+          <div class={`relative rounded-2xl p-8 ${t.highlight ? 'bg-ds-gradient border-2 border-cyan-500/50 shadow-ds-glow' : 'bg-white/[0.03] border border-white/10'}`}>
+            {t.highlight && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span class="chip-lime">Most popular</span>
+              </div>
+            )}
+            <h2 class={`text-2xl font-bold ${t.highlight ? 'text-white' : 'text-white'}`}>{t.name}</h2>
+            <p class="mt-2 text-sm text-ink-300">{t.desc}</p>
+            <div class="mt-6 flex items-baseline gap-2">
+              <div class={`text-4xl font-bold ${t.highlight ? 'grad-text' : 'text-white'}`}>{t.price}</div>
+              <div class="text-sm text-ink-400">{t.period}</div>
+            </div>
+            <ul class="mt-8 space-y-3">
+              {t.features.map(f => (
+                <li class="flex gap-3 text-sm">
+                  <span class={t.highlight ? 'text-lime-400' : 'text-cyan-400'}>✓</span>
+                  <span class="text-ink-200">{f}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={`/contact/?service=${encodeURIComponent(t.name)}&source=pricing`} class={`mt-8 block text-center ${t.highlight ? 'btn-primary' : 'btn-secondary'}`}>
+              {t.cta}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-10 text-center text-sm text-ink-400">All prices USD. Management fees separate from ad spend. NDA available on request.</p>
+    </div>
+  </section>
+
+  <section class="section bg-navy-950 border-t border-white/5">
+    <div class="container-site max-w-4xl">
+      <div class="text-center">
+        <div class="eyebrow justify-center">Questions</div>
+        <h2 class="h2 mt-4">Pricing & engagement FAQ</h2>
+      </div>
+      <div class="mt-12 space-y-3">
+        {FAQS.slice(0, 7).map(f => (
+          <details class="group rounded-xl border border-white/10 bg-white/[0.03] open:border-cyan-500/40">
+            <summary class="flex cursor-pointer items-center justify-between p-5 font-semibold text-white">
+              <span>{f.q}</span>
+              <span class="text-cyan-400 group-open:rotate-45 transition text-xl">+</span>
+            </summary>
+            <p class="px-5 pb-5 text-ink-300 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
